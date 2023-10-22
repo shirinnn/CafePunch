@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CafePunchApplication<cafe_punch>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.seveneleven.cafe_punch.CafePunchApplication",
+            "projectName": "cafe_punch",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
