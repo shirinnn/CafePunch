@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoginController {
 
     @GetMapping("/")
-    public String showLogin(Model model) {
-        return "Index.html";
+    public String displayLoginPage(Model model) {
+        return "Index";
+    }
+
+    @GetMapping("/UserAccountManagement")
+    public String showTest(Model model) {
+        return "UserAccountManagement";
     }
     
 }
