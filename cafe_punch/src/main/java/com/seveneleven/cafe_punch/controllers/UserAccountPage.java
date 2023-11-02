@@ -18,7 +18,7 @@ public class UserAccountPage {
     @Autowired
     UserAccountController controller;
 
-    // Using /user/ to view all userAccounts
+    // Using /userAccount/ to view all userAccounts
     @GetMapping("/")
     public String userAccountView(Model model) {
         List<UserAccount> userAccounts = controller.viewUserAccounts();

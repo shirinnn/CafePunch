@@ -2,7 +2,7 @@ $(document).ready(function() {
     $('#userAccountTable').DataTable({
       //disable sorting on last column
       "columnDefs": [
-        { "orderable": false, "targets": 5 }
+        { "orderable": false }
       ],
       ordering: false,
       searching: false,
