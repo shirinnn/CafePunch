@@ -4,18 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
 @Controller
-public class LoginController {
+public class LoginPage {
 
     @GetMapping("/")
-    public String displayLoginPage(Model model) {
+    public String LoginView(Model model) {
         return "Index";
-    }
-
-    @GetMapping("/UserAccountManagement")
-    public String showTest(Model model) {
-        return "UserAccountManagement";
     }
     
 }

@@ -1,14 +1,16 @@
 $(document).ready(function() {
-    $('#example').DataTable({
+    $('#userAccountTable').DataTable({
       //disable sorting on last column
       "columnDefs": [
         { "orderable": false, "targets": 5 }
       ],
+      ordering: false,
+      searching: false,
       language: {
         //customize pagination prev and next buttons: use arrows instead of words
         'paginate': {
-          'previous': '<span class="fa fa-chevron-left"></span>',
-          'next': '<span class="fa fa-chevron-right"></span>'
+          'previous': '<span class="bi bi-caret-left"></span>',
+          'next': '<span class="bi bi-caret-right"></span>'
         },
         //customize number of elements to be displayed
         "lengthMenu": 'Display <select class="form-control input-sm">'+
