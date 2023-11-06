@@ -27,4 +27,8 @@ public class UserAccountEntity {
         List<UserAccount> results = jdbcTemplate.query("SELECT * FROM useraccounts LEFT JOIN userprofiles ON useraccounts.profileID=userprofiles.profileID", new UserAccountMapper());
         return results;
     }
+
+    public void login(){
+        
+    }
 }

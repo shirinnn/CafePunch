@@ -20,15 +20,29 @@ public class UserProfilePage {
 
     // using /userProfile/ to view all user profiles
     @GetMapping("/")
-    public String userProfileView(Model model){
+    public String UserProfileView(Model model){
 
-
+        // initialise list of user profiles return from controller
         List<UserProfile> userProfiles = controller.viewUserProfile();
         
-        // pass attributes to html
+        // pass list to html
         model.addAttribute("userProfiles", userProfiles);
 
-        return "UserProfileManagement";
+        return "UserProfileManagement.html";
+    }
+
+    @GetMapping("/create")
+    public String CreateUserProfile(Model model){
+
+        
+        return "UserProfileForm.html";
+    }
+
+    @GetMapping("/update")
+    public String UpdateUserProfile(Model model){
+
+        
+        return "UserProfileForm.html";
     }
     
 }

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/adminLayout}">
+
+<body>
+    <div layout:fragment="content" class="mb-4">
+    <main id="main" class="main cd_main">
+
+        <div class="pagetitle">
+          <!-- Title to change based on create/update-->
+          <h1>Create User Profile</h1>
+        </div><!-- End Page Title -->
+
+        <!--Start of Form-->
+        <form>
+            <div class="row mb-3">
+                <label for="empID" class="col-sm-2 col-form-label">Profile Name</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control">
+                </div>
+            </div>
+
+            <fieldset class="row mb-3">
+              <legend class="col-form-label col-sm-2 pt-0">Permission Type</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="permissionRadios" id="permissionRadio1" value="1" checked>
+                  <label class="form-check-label" for="permissionRadio1">
+                    Owner
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="permissionRadios" id="permissionRadio2" value="option2">
+                  <label class="form-check-label" for="permissionRadio2">
+                    Manager
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="permissionRadios" id="permissionRadio3" value="option">
+                  <label class="form-check-label" for="permissionRadio3">
+                    Staff
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+
+            <div class="col-sm-10 text-center">
+                <button type="submit" class="btn btn-primary">Create Profile</button>
+            </div>
+
+          </form>
+          <!-- End of Form-->
+    </div>
+</body>
+
+</html>

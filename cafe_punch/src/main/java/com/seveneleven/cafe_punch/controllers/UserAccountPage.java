@@ -28,4 +28,18 @@ public class UserAccountPage {
 
         return "UserAccountManagement.html";
     }
+
+    @GetMapping("/create")
+    public String CreateUserAccount(Model model)
+    {
+        // get the data from html, pass to controller
+
+        return "UserAccountCreateForm.html";
+    }
+
+    @GetMapping("/update")
+    public String UpdateUserAccount(Model model)
+    {
+        return "UserAccountUpdateForm.html";
+    }
 }
