@@ -64,20 +64,30 @@
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form class="row g-3 needs-validation" action="#" method="post" th:action="@{processLogin}" th:object="${userAccount}" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="empID" class="form-label">Employee ID</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                        <input th:field="*{empID}" type="text" name="empID" class="form-control" id="empID" required>
+                        <div class="invalid-feedback">Please enter your Employee ID.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <label for="password" class="form-label">Password</label>
+                      <input th:field="*{password}" type="password" name="password" class="form-control" id="password" required>
                       <div class="invalid-feedback">Please enter your password!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label class="col-form-label">Login As</label>
+                        <select class="form-select" aria-label="User Profile" name="loginAs">
+                          <option value="Owner" selected>Owner</option>
+                          <option value="Manager">Manager</option>
+                          <option value="Staff">Staff</option>
+                          <option value="Admin">Admin</option>
+                        </select>
                     </div>
 
                     <div class="col-12">

@@ -1,4 +1,4 @@
-package com.seveneleven.cafe_punch.data;
+package com.seveneleven.cafe_punch.entity;
 
 import java.util.List;
 

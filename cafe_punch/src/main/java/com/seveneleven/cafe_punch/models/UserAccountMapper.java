@@ -14,9 +14,10 @@ public class UserAccountMapper implements RowMapper<UserAccount> {
         // return it
 
         UserAccount userAccount = new UserAccount(rs.getString("empID"), rs.getString("firstName"), rs.getString("lastName"), 
-                                    rs.getString("email"), rs.getString("gender"), rs.getString("password"), rs.getString("profileName"));
+                                    rs.getString("email"), rs.getString("gender"), rs.getString("password"), rs.getString("profileName"), rs.getString("status"));
 
         return userAccount;
+        
     }
     
 }

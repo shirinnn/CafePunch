@@ -1,4 +1,4 @@
-package com.seveneleven.cafe_punch.data;
+package com.seveneleven.cafe_punch.entity;
 
 import java.util.List;
 
@@ -22,13 +22,33 @@ public class UserAccountEntity {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    // For Login
+    public boolean validateCredentials(String empID, String password, String loginRole){
+        // sql statement 
+        boolean result;
+
+        if (!loginRole.equals("Admin")){
+            result = !jdbcTemplate.query("SELECT * FROM useraccounts LEFT JOIN userprofiles ON useraccounts.profileID=userprofiles.profileID" + 
+                                                    " WHERE empID = ? AND password = ? AND permissionType = ?", new UserAccountMapper(), 
+                                                    empID, password, loginRole).isEmpty();
+        }
+        else{
+            if (empID.equals("admin") && password.equals("12345"))
+            {
+                result = true;
+            }
+            else{
+                result = false;
+            }
+        }
+                    
+        return result;
+    }
+
+    // For view User Accounts
     public List<UserAccount> viewUserAccounts() {
         // sql statement to get all user Accounts
         List<UserAccount> results = jdbcTemplate.query("SELECT * FROM useraccounts LEFT JOIN userprofiles ON useraccounts.profileID=userprofiles.profileID", new UserAccountMapper());
         return results;
-    }
-
-    public void login(){
-        
     }
 }

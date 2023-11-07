@@ -1,15 +1,15 @@
-package com.seveneleven.cafe_punch.service;
+package com.seveneleven.cafe_punch.controllers_service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.seveneleven.cafe_punch.data.UserAccountEntity;
+import com.seveneleven.cafe_punch.entity.UserAccountEntity;
 import com.seveneleven.cafe_punch.models.UserAccount;
 
 @Service
-public class UserAccountController {
+public class ViewUserAccountController {
     
     @Autowired
     UserAccountEntity UserAccount;

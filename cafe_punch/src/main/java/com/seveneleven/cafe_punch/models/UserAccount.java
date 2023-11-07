@@ -8,11 +8,12 @@ public class UserAccount {
     String gender;
     String password;
     String profileName;
+    String status;
     
     public UserAccount() {
     }
 
-    public UserAccount(String empID, String firstName, String lastName, String email, String gender, String password, String profileName) {
+    public UserAccount(String empID, String firstName, String lastName, String email, String gender, String password, String profileName, String status) {
         this.empID = empID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,6 +21,7 @@ public class UserAccount {
         this.gender = gender;
         this.password = password;
         this.profileName = profileName;
+        this.status = status;
     }
 
     public String getEmpID() {
@@ -42,9 +44,56 @@ public class UserAccount {
     public String getPassword() {
         return password;
     }
-    public String getProfileID() {
+    public String getProfileName() {
         return profileName;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    
+
+    @Override
+    public String toString() {
+        return "UserAccount [empID=" + empID + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+                + email + ", gender=" + gender + ", password=" + password + ", profileName=" + profileName + "]";
+    }
+
+    public void setEmpID(String empID) {
+        this.empID = empID;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+
 }
+
 
 
