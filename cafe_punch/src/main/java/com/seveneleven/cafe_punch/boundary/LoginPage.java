@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.seveneleven.cafe_punch.controllers_service.LoginController;
+import com.seveneleven.cafe_punch.controllers_service.LogoutController;
 import com.seveneleven.cafe_punch.models.UserAccount;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 public class LoginPage {
 
     @Autowired LoginController loginController;
+    @Autowired LogoutController logoutController;
 
     @GetMapping("/")
     public String LoginView(Model model) {
@@ -34,7 +36,7 @@ public class LoginPage {
         HttpSession session = request.getSession();
         session.setAttribute("currentUserID", userAccount.getEmpID());
         session.setAttribute("loginRole", loginRole);
-        System.out.println("Setting currentUser as " + session.getAttribute("currentUser"));
+        System.out.println("Setting currentUser as " + session.getAttribute("currentUserID"));
 
         // Post data from userAccount attribute in html
         model.addAttribute("userAccount", userAccount);
@@ -45,5 +47,11 @@ public class LoginPage {
         } else {
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        logoutController.logout();
+        return "redirect:/";
     }
 }
