@@ -31,19 +31,24 @@ public class LoginPage {
 
         // Console Log the role user choose to login as
         System.out.println("Logging in As: " + loginRole);
-        
-        // Set session attributes
+
+        // Initialise session
         HttpSession session = request.getSession();
-        session.setAttribute("currentUserID", userAccount.getEmpID());
-        session.setAttribute("loginRole", loginRole);
-        System.out.println("Setting currentUser as " + session.getAttribute("currentUserID"));
 
         // Post data from userAccount attribute in html
         model.addAttribute("userAccount", userAccount);
 
         boolean validated = loginController.validateCredentials(userAccount.getEmpID(), userAccount.getPassword(), loginRole);
         if (validated){
-            return "redirect:/userAccount/";
+            
+            // Set session attributes
+            session.setAttribute("currentUserID", userAccount.getEmpID());
+            session.setAttribute("loginRole", loginRole);
+            System.out.println("Setting currentUser as " + session.getAttribute("currentUserID"));
+
+            if(loginRole.equals("Admin"))
+                return "redirect:/userAccount/";
+            return "redirect:/";
         } else {
             return "redirect:/";
         }

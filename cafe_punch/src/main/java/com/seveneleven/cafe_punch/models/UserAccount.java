@@ -7,20 +7,20 @@ public class UserAccount {
     String email;
     String gender;
     String password;
-    String profileName;
+    int profileID;
     String status;
     
     public UserAccount() {
     }
 
-    public UserAccount(String empID, String firstName, String lastName, String email, String gender, String password, String profileName, String status) {
+    public UserAccount(String empID, String firstName, String lastName, String email, String gender, String password, int profileID, String status) {
         this.empID = empID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.gender = gender;
         this.password = password;
-        this.profileName = profileName;
+        this.profileID = profileID;
         this.status = status;
     }
 
@@ -44,8 +44,8 @@ public class UserAccount {
     public String getPassword() {
         return password;
     }
-    public String getProfileName() {
-        return profileName;
+    public int getProfileID() {
+        return profileID;
     }
 
     public String getStatus() {
@@ -57,7 +57,7 @@ public class UserAccount {
     @Override
     public String toString() {
         return "UserAccount [empID=" + empID + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-                + email + ", gender=" + gender + ", password=" + password + ", profileName=" + profileName + "]";
+                + email + ", gender=" + gender + ", password=" + password + ", profileName=" + profileID + "]";
     }
 
     public void setEmpID(String empID) {
@@ -84,8 +84,8 @@ public class UserAccount {
         this.password = password;
     }
 
-    public void setProfileName(String profileName) {
-        this.profileName = profileName;
+    public void setProfileID(int profileID) {
+        this.profileID = profileID;
     }
 
     public void setStatus(String status) {

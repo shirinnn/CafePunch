@@ -27,13 +27,17 @@
                         <td th:text="${user.lastName} + ' ' +  ${user.firstName}"></td>
                         <td th:text="${user.email}"></td>
                         <td th:text="${user.gender}"></td>
-                        <td th:text="${user.profileName}"></td>
+                        <td th:switch= "${user.profileID}">
+                            <div th:each="profile : ${userProfiles}">
+                                <span th:case="${profile.profileID}" th:text="${profile.profileName}"></span>
+                            </div> 
+                        </td>
                         <td><span class="bi bi-pencil-square"></span></td>
                         <td><span class="bi bi-trash"></span></td>
                     </tr>
                 </tbody>
             </table>
-            <button class="btn btn-primary float-end mt-1">Create New Account</button>
+            <a href="/userAccount/createForm"><button class="btn btn-primary float-end mt-1">Create New Account</button></a>
     </div>
 </body>
 

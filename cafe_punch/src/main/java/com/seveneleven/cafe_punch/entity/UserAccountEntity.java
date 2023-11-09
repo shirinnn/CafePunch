@@ -48,7 +48,24 @@ public class UserAccountEntity {
     // For view User Accounts
     public List<UserAccount> viewUserAccounts() {
         // sql statement to get all user Accounts
-        List<UserAccount> results = jdbcTemplate.query("SELECT * FROM useraccounts LEFT JOIN userprofiles ON useraccounts.profileID=userprofiles.profileID", new UserAccountMapper());
+        List<UserAccount> results = jdbcTemplate.query("SELECT * FROM useraccounts LEFT JOIN userprofiles ON useraccounts.profileID=userprofiles.profileID WHERE status = 'active'", new UserAccountMapper());
         return results;
+    }
+
+    // Create User Account
+    public boolean createAccount(UserAccount userAccount){
+
+        // UserAccount to be insert into the database
+
+        boolean result = jdbcTemplate.update("INSERT INTO useraccounts (empID,firstName,lastName,email,gender,password,profileID,status) " + 
+                                            "VALUES (?,?,?,?,?,?,?,'Active')",
+                                            userAccount.getEmpID(),
+                                            userAccount.getFirstName(),
+                                            userAccount.getLastName(),
+                                            userAccount.getEmail(),
+                                            userAccount.getGender(),
+                                            userAccount.getPassword(),
+                                            userAccount.getProfileID()) != 0;
+        return result;
     }
 }

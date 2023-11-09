@@ -11,16 +11,15 @@ import com.seveneleven.cafe_punch.models.UserAccount;
 import com.seveneleven.cafe_punch.models.UserProfile;
 
 @Service
-public class ViewUserAccountController {
-    
-    @Autowired
+public class CreateUserAccountController {
+    @Autowired 
     UserAccountEntity UserAccount;
 
-    public List<UserAccount> viewUserAccounts(){
-        return UserAccount.viewUserAccounts();
+    public boolean createAccount(UserAccount userAccount){
+        return UserAccount.createAccount(userAccount);
     }
 
-     @Autowired
+    @Autowired
     UserProfileEntity userProfile;
     public List<UserProfile> getProfiles()
     {
