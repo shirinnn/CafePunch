@@ -10,24 +10,32 @@
         </div><!-- End Page Title -->
 
         <!--Start of Form-->
-        <form>
+        <form method="post" th:action="@{'update/' + ${account.empID}} " th:object="${account}">
+          <div class="row mb-3">
+            <label for="empID" class="col-sm-2 col-form-label">empID</label>
+            <div class="col-sm-5">
+              <input th:field="*{empID}" type="text" class="form-control" disabled readonly>
+            </div>
+          </div>
+
+
             <div class="row mb-3">
               <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
               <div class="col-sm-3">
-                <input type="text" class="form-control">
+                <input th:field="*{firstName}" type="text" class="form-control">
               </div>
 
               <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
               <div class="col-sm-3">
-                <input type="text" class="form-control">
+                <input th:field="*{lastName}" type="text" class="form-control">
               </div>
             </div>
 
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Gender</label>
                 <div class="col-sm-3">
-                  <select class="form-select" aria-label="Gender">
-                    <option value="F" selected>Female</option>
+                  <select class="form-select" aria-label="Gender" th:field="*{gender}">
+                    <option value="F">Female</option>
                     <option value="M">Male</option>
                   </select>
                 </div>
@@ -36,17 +44,17 @@
             <div class="row mb-3">
               <label for="email" class="col-sm-2 col-form-label">Email</label>
               <div class="col-sm-5">
-                <input type="email" class="form-control">
+                <input th:field="*{email}" type="email" class="form-control">
               </div>
             </div>
 
             <div class="row mb-3">
               <label class="col-sm-2 col-form-label">User Profile</label>
               <div class="col-sm-5">
-                <select class="form-select" aria-label="User Profile">
-                  <option value="1" selected>Cafe Owner</option>
-                  <option value="2">Cafe Manager</option>
-                  <option value="3">Full Timer </option>
+                <select class="form-select" aria-label="User Profile" th:field="*{profileID}">
+                  <option th:each="profile : ${profiles}" th:value="${profile.profileID}">
+                    <span th:text="${profile.profileName}"></span>
+                  </option>
                 </select>
               </div>
             </div>

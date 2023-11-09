@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.seveneleven.cafe_punch.controllers_service.CreateUserAccountController;
+import com.seveneleven.cafe_punch.controllers_service.SuspendUserAccountController;
+import com.seveneleven.cafe_punch.controllers_service.UpdateUserAccountController;
 import com.seveneleven.cafe_punch.controllers_service.ViewUserAccountController;
 import com.seveneleven.cafe_punch.models.UserAccount;
 import com.seveneleven.cafe_punch.models.UserProfile;
@@ -26,7 +29,7 @@ public class UserAccountPage {
 
     // Using /userAccount/ to view all userAccounts
     @GetMapping("/")
-    public String userAccountView(Model model, HttpSession session) {
+    public String DisplayUserAccounts(Model model, HttpSession session) {
         // getting session attributes
         String currentUserID = (String) session.getAttribute("currentUserID");
         String loginRole = (String) session.getAttribute("loginRole");
@@ -52,7 +55,7 @@ public class UserAccountPage {
     CreateUserAccountController CreateController;
 
     @GetMapping("/createForm")
-    public String CreateUserAccount(Model model, HttpSession session)
+    public String DisplayCreateAccountForm(Model model, HttpSession session)
     {
         List<UserProfile> profiles = new ArrayList<UserProfile>();
         // getting session attributes
@@ -77,8 +80,9 @@ public class UserAccountPage {
     }
 
     @PostMapping("/createForm/create")
-    public String createUserAccount(UserAccount userAccount, Model model)
+    public String createAccount(UserAccount userAccount, Model model)
     {
+        // post data from userAccount attributes in html
         model.addAttribute("userAccount", userAccount);
 
         boolean result = CreateController.createAccount(userAccount);
@@ -89,15 +93,62 @@ public class UserAccountPage {
         }
     }
 
+    @Autowired 
+    UpdateUserAccountController UpdateController;
 
-    @GetMapping("/update") // add on /{empID}
-    public String UpdateUserAccount(Model model)
+    @GetMapping("/updateForm/{empID}")
+    public String DisplayUpdateAccountForm(Model model, HttpSession session, @PathVariable(name="empID") String empID)
     {
+        // getting session attributes
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        String loginRole = (String) session.getAttribute("loginRole");
+        
+        // Redirect User who is not logging as admin back to login page
+        if (currentUserID == null || !loginRole.equals("Admin")){
+            return "redirect:/";
+        }
+
+        // get profiles from db to populate the dropdown list in html
+        List<UserProfile> profiles = UpdateController.getProfiles();
+
+        // Get Existing Information of the account by ID
+        UserAccount account = UpdateController.getUserAccountByID(empID);
+
+        // attribute to pass to html
+        model.addAttribute("userName", "Admin"); // For the nav bar user name
+        model.addAttribute("empID", currentUserID); // For the nav bar emp ID
+        model.addAttribute("profiles", profiles); // pass list to html to populate dropdown list
+        model.addAttribute("account", new UserAccount(account.getEmpID(), account.getFirstName(), account.getLastName(), account.getEmail(),
+                                                                    account.getGender(), account.getPassword(), account.getProfileID(), account.getStatus()));
+
         return "UserAccountUpdateForm.html";
     }
 
-    @GetMapping("/suspend") // add on /{empID}
-    public String SuspendUserAccount(Model model){
-        return "";
+    @PostMapping("/updateForm/update/{empID}")
+    public String updateAccount(UserAccount account, Model model, @PathVariable(name="empID") String empID){
+
+        // post data from userAccount attributes in html
+        model.addAttribute("account", account);
+
+        boolean result = UpdateController.updateAccount(account);
+
+        if (result){
+            return "redirect:/userAccount/";
+        } else {
+            return "redirect:/userAccount/updateForm/" + empID;
+        }
+    }
+
+    @Autowired SuspendUserAccountController suspendController;
+    @GetMapping("/suspend/{empID}") // add on /{empID}
+    public String SuspendUserAccount(Model model, @PathVariable(name="empID") String empID){
+
+        boolean result = suspendController.suspendUserAccount(empID);
+
+        if (result){
+            return "redirect:/userAccount/";
+        } else {
+            return "redirect:/";
+        }
     }
 }

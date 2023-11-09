@@ -51,6 +51,16 @@ public class UserAccountEntity {
         List<UserAccount> results = jdbcTemplate.query("SELECT * FROM useraccounts LEFT JOIN userprofiles ON useraccounts.profileID=userprofiles.profileID WHERE status = 'active'", new UserAccountMapper());
         return results;
     }
+    
+    public UserAccount getUserAccountByID(String empID){
+        List<UserAccount> results = jdbcTemplate.query("SELECT * FROM useraccounts WHERE empID = ?", new UserAccountMapper(), empID);
+
+        if(results.size() > 0){
+            return results.get(0);
+        } else {
+            return null;
+        }
+    }
 
     // Create User Account
     public boolean createAccount(UserAccount userAccount){
@@ -67,5 +77,35 @@ public class UserAccountEntity {
                                             userAccount.getPassword(),
                                             userAccount.getProfileID()) != 0;
         return result;
+    }
+
+    // Update User Account
+    public boolean updateAccount(UserAccount userAccount)
+    {
+        int result = jdbcTemplate.update("UPDATE useraccounts SET firstName=?, lastName=?, email=?, gender=?, profileID=? WHERE empID=?",
+                                            userAccount.getFirstName(),
+                                            userAccount.getLastName(),
+                                            userAccount.getEmail(),
+                                            userAccount.getGender(),
+                                            userAccount.getProfileID(),
+                                            userAccount.getEmpID());
+        
+        if (result > 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Suspend UserAccount
+    public boolean suspendUserAccount(String empID){
+
+        int result = jdbcTemplate.update("UPDATE useraccounts SET status='Suspend' WHERE empID=?", empID);
+
+        if (result > 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

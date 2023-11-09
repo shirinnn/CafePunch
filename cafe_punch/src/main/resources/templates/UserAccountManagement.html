@@ -32,8 +32,8 @@
                                 <span th:case="${profile.profileID}" th:text="${profile.profileName}"></span>
                             </div> 
                         </td>
-                        <td><span class="bi bi-pencil-square"></span></td>
-                        <td><span class="bi bi-trash"></span></td>
+                        <td><a th:href="@{/userAccount/updateForm/{empID}(empID=${user.empID})}"><span class="bi bi-pencil-square"></a></span></td>
+                        <td><a th:href="@{/userAccount/suspend/{empID}(empID=${user.empID})}"><span class="bi bi-trash"></span></a></td>
                     </tr>
                 </tbody>
             </table>
