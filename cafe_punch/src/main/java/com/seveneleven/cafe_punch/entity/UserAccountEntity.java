@@ -46,7 +46,7 @@ public class UserAccountEntity {
     }
 
     // For view User Accounts
-    public List<UserAccount> viewUserAccounts() {
+    public List<UserAccount> viewAccounts() {
         // sql statement to get all user Accounts
         List<UserAccount> results = jdbcTemplate.query("SELECT * FROM useraccounts LEFT JOIN userprofiles ON useraccounts.profileID=userprofiles.profileID WHERE status = 'active'", new UserAccountMapper());
         return results;
@@ -60,6 +60,12 @@ public class UserAccountEntity {
         } else {
             return null;
         }
+    }
+
+    public List<UserAccount> searchAccount(String fullname){
+        List<UserAccount> results = jdbcTemplate.query("SELECT * FROM useraccounts LEFT JOIN userprofiles ON useraccounts.profileID=userprofiles.profileID WHERE concat_ws(' ', firstName, lastName) LIKE ?", new UserAccountMapper(),
+                                                            "%"+ fullname +"%");
+        return results;
     }
 
     // Create User Account

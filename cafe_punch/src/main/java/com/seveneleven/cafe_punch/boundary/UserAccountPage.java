@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.seveneleven.cafe_punch.controllers_service.CreateUserAccountController;
+import com.seveneleven.cafe_punch.controllers_service.SearchUserAccountController;
 import com.seveneleven.cafe_punch.controllers_service.SuspendUserAccountController;
 import com.seveneleven.cafe_punch.controllers_service.UpdateUserAccountController;
 import com.seveneleven.cafe_punch.controllers_service.ViewUserAccountController;
@@ -40,7 +42,36 @@ public class UserAccountPage {
         }
 
         // Get list of user Accounts
-        List<UserAccount> userAccounts = ViewController.viewUserAccounts();
+        List<UserAccount> userAccounts = ViewController.viewAccounts();
+
+        // To populate dropdown list based on UserProfiles Table
+        List<UserProfile> userProfiles = ViewController.getProfiles();
+
+        // attributes to pass to html
+        model.addAttribute("userAccounts", userAccounts); // pasing the list of userAccounts
+        model.addAttribute("userName", "Admin"); // For the nav bar user name
+        model.addAttribute("empID", currentUserID); // For the nav bar user id
+        model.addAttribute("userProfiles", userProfiles);
+
+        return "UserAccountManagement";
+    }
+
+    @Autowired
+    SearchUserAccountController SearchController;
+
+    @PostMapping("/search")
+    public String SearchUserAccounts(@RequestParam String fullname,Model model, HttpSession session){
+        // getting session attributes
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        String loginRole = (String) session.getAttribute("loginRole");
+
+        // Redirect non-admin user away and users who access via url
+        if (currentUserID == null || !loginRole.equals("Admin")){
+            return "redirect:/";
+        }
+
+        // Get list of user Accounts
+        List<UserAccount> userAccounts = SearchController.searchAccount(fullname);
 
         // To populate dropdown list based on UserProfiles Table
         List<UserProfile> userProfiles = ViewController.getProfiles();
@@ -145,6 +176,7 @@ public class UserAccountPage {
 
     @Autowired 
     SuspendUserAccountController suspendController;
+
     @GetMapping("/suspend/{empID}") // add on /{empID}
     public String SuspendUserAccount(Model model, @PathVariable(name="empID") String empID){
 
@@ -156,4 +188,6 @@ public class UserAccountPage {
             return "redirect:/";
         }
     }
+
+
 }

@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.seveneleven.cafe_punch.controllers_service.CreateUserProfileController;
+import com.seveneleven.cafe_punch.controllers_service.SearchUserProfileController;
 import com.seveneleven.cafe_punch.controllers_service.SuspendUserProfileController;
 import com.seveneleven.cafe_punch.controllers_service.UpdateUserProfileController;
 import com.seveneleven.cafe_punch.controllers_service.ViewUserProfileController;
+import com.seveneleven.cafe_punch.models.UserAccount;
 import com.seveneleven.cafe_punch.models.UserProfile;
 
 import jakarta.servlet.http.HttpSession;
@@ -39,6 +42,31 @@ public class UserProfilePage {
 
         // initialise list of user profiles return from controller
         List<UserProfile> userProfiles = controller.viewUserProfile();
+        
+        // pass list to html
+        model.addAttribute("userProfiles", userProfiles);
+        model.addAttribute("userName", "Admin");
+        model.addAttribute("empID", currentUserID);
+
+        return "UserProfileManagement.html";
+    }
+
+    @Autowired
+    SearchUserProfileController SearchController;
+
+    @PostMapping("/search")
+    public String UserProfileSearch(@RequestParam String name,Model model, HttpSession session){
+
+        // getting session attributes
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        String loginRole = (String) session.getAttribute("loginRole");
+        
+        if (currentUserID == null || !loginRole.equals("Admin")){
+            return "redirect:/";
+        }
+
+        // initialise list of user profiles return from controller
+        List<UserProfile> userProfiles = SearchController.searchProfile(name);
         
         // pass list to html
         model.addAttribute("userProfiles", userProfiles);

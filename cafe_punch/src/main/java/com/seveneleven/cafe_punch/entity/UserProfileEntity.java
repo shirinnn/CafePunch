@@ -40,6 +40,12 @@ public class UserProfileEntity {
         }
     }
 
+    public List<UserProfile> searchProfile(String name){
+        List<UserProfile> results = jdbcTemplate.query("SELECT * FROM userprofiles WHERE profileName LIKE ?", new UserProfileMapper(),
+                                                            "%"+ name +"%");
+        return results;
+    }
+
     // Create User Profile
     public boolean createProfile(UserProfile userProfile){
 

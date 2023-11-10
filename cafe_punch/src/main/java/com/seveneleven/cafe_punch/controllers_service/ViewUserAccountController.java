@@ -16,8 +16,8 @@ public class ViewUserAccountController {
     @Autowired
     UserAccountEntity UserAccount;
 
-    public List<UserAccount> viewUserAccounts(){
-        return UserAccount.viewUserAccounts();
+    public List<UserAccount> viewAccounts(){
+        return UserAccount.viewAccounts();
     }
 
      @Autowired

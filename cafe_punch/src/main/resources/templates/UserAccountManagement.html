@@ -9,6 +9,16 @@
           <h1>User Account Management</h1>
         </div><!-- End Page Title -->
 
+            <form action="#" method="post" th:action="@{search}">
+                <div class="row mb-3">
+                    <div class="col-sm-7"></div>
+                    <div class="col-sm-4">
+                        <input class="form-control col-sm-3" type="text" name="fullname" th:value="${fullname}" placeholder="Search By Name...">
+                    </div>
+                    <button class="btn btn-primary col-sm-1">Search</button>
+                </div>
+            </form>
+
             <table id="userAccountTable" class="table" style="width:100%">
                 <thead>
                     <tr>
