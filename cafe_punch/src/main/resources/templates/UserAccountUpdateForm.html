@@ -10,7 +10,7 @@
         </div><!-- End Page Title -->
 
         <!--Start of Form-->
-        <form method="post" th:action="@{'update/' + ${account.empID}} " th:object="${account}">
+        <form method="post" th:action="@{'update/' + ${account.empID}}" th:object="${account}">
           <div class="row mb-3">
             <label for="empID" class="col-sm-2 col-form-label">empID</label>
             <div class="col-sm-5">
@@ -60,7 +60,7 @@
             </div>
 
             <div class="col-sm-10 text-center">
-                <button type="submit" class="btn btn-primary">Confirm Edit</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
 
           </form>

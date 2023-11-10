@@ -26,5 +26,18 @@ public class UserProfile {
         return permissionType;
     }
 
+    public void setProfileID(int profileID) {
+        this.profileID = profileID;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
+
+    public void setPermissionType(String permissionType) {
+        this.permissionType = permissionType;
+    }
+
+    
     
 }

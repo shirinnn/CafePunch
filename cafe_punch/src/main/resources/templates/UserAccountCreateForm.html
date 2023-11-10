@@ -57,7 +57,7 @@
             <div class="row mb-3">
               <label class="col-sm-2 col-form-label">User Profile</label>
               <div class="col-sm-5">
-                <select class="form-select" aria-label="User Profile">
+                <select th:field=*{profileID} class="form-select" aria-label="User Profile">
                   <option th:each="profile : ${profiles}" th:value="${profile.profileID}"><span th:text="${profile.profileName}"></span></option>
                 </select>
               </div>

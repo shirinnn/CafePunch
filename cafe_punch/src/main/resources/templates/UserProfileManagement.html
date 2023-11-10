@@ -24,12 +24,12 @@
                         <td th:text="${userProfile.profileID}"></td>
                         <td th:text="${userProfile.profileName}"></td>
                         <td th:text="${userProfile.permissionType}"></td>
-                        <td><span class="bi bi-pencil-square"></span></td>
-                        <td><span class="bi bi-trash"></span></td>
+                        <td><a th:href="@{/userProfile/updateForm/{profileID}(profileID=${userProfile.profileID})}"><span class="bi bi-pencil-square"></span></a></td>
+                        <td><a th:href="@{/userProfile/suspend/{profileID}(profileID=${userProfile.profileID})}"><span class="bi bi-trash"></span></a></td>
                     </tr>
                 </tbody>
             </table>
-            <button class="btn btn-primary float-end mt-1">Create New Profile</button>
+            <a href="/userProfile/createForm"><button class="btn btn-primary float-end mt-1">Create New Profile</button></a>
     </div>
 </body>
 

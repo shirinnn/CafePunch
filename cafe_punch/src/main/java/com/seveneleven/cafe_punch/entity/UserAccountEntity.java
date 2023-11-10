@@ -98,7 +98,7 @@ public class UserAccountEntity {
     }
 
     // Suspend UserAccount
-    public boolean suspendUserAccount(String empID){
+    public boolean suspendAccount(String empID){
 
         int result = jdbcTemplate.update("UPDATE useraccounts SET status='Suspend' WHERE empID=?", empID);
 

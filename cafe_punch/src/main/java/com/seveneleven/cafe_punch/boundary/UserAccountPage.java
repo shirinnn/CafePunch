@@ -33,13 +33,16 @@ public class UserAccountPage {
         // getting session attributes
         String currentUserID = (String) session.getAttribute("currentUserID");
         String loginRole = (String) session.getAttribute("loginRole");
-        
+
+        // Redirect non-admin user away and users who access via url
         if (currentUserID == null || !loginRole.equals("Admin")){
             return "redirect:/";
         }
 
         // Get list of user Accounts
         List<UserAccount> userAccounts = ViewController.viewUserAccounts();
+
+        // To populate dropdown list based on UserProfiles Table
         List<UserProfile> userProfiles = ViewController.getProfiles();
 
         // attributes to pass to html
@@ -58,6 +61,7 @@ public class UserAccountPage {
     public String DisplayCreateAccountForm(Model model, HttpSession session)
     {
         List<UserProfile> profiles = new ArrayList<UserProfile>();
+
         // getting session attributes
         String currentUserID = (String) session.getAttribute("currentUserID");
         String loginRole = (String) session.getAttribute("loginRole");
@@ -139,11 +143,12 @@ public class UserAccountPage {
         }
     }
 
-    @Autowired SuspendUserAccountController suspendController;
+    @Autowired 
+    SuspendUserAccountController suspendController;
     @GetMapping("/suspend/{empID}") // add on /{empID}
     public String SuspendUserAccount(Model model, @PathVariable(name="empID") String empID){
 
-        boolean result = suspendController.suspendUserAccount(empID);
+        boolean result = suspendController.suspendAccount(empID);
 
         if (result){
             return "redirect:/userAccount/";

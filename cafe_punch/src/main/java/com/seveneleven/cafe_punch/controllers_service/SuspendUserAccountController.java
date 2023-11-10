@@ -10,7 +10,7 @@ public class SuspendUserAccountController {
     @Autowired 
     UserAccountEntity UserAccount;
 
-    public boolean suspendUserAccount(String empID){
-        return UserAccount.suspendUserAccount(empID);
+    public boolean suspendAccount(String empID){
+        return UserAccount.suspendAccount(empID);
     }
 }
