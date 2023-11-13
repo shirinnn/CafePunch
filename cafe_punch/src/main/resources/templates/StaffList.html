@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/ownerLayout}">
+
+<body>
+    <div layout:fragment="content" class="mb-4">
+    <main id="main" class="main cd_main">
+
+        <div class="pagetitle">
+          <h1>Staff Management</h1>
+        </div><!-- End Page Title -->
+
+            <!-- <form action="#" method="post" th:action="@{search}">
+                <div class="row mb-3">
+                    <div class="col-sm-7"></div>
+                    <div class="col-sm-4">
+                        <input class="form-control col-sm-3" type="text" name="name" th:value="${name}" placeholder="Search By Name...">
+                    </div>
+                    <button class="btn btn-primary col-sm-1">Search</button>
+                </div>
+            </form> -->
+
+            <table id="StaffTable" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Designation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="staff : ${userAccounts}">
+                        <td th:text="${staff.empID}"></td>
+                        <td th:text="${staff.lastName} + ' ' + ${staff.firstName}"></td>
+                        <td th:switch= "${staff.profileID}">
+                            <div th:each="profile : ${userProfiles}">
+                                <span th:case="${profile.profileID}" th:text="${profile.profileName}"></span>
+                            </div> 
+                        </td>
+                        <!-- <td><a th:href="@{/userProfile/updateForm/{profileID}(profileID=${userProfile.profileID})}"><span class="bi bi-pencil-square"></span></a></td>
+                        <td><a th:href="@{/userProfile/suspend/{profileID}(profileID=${userProfile.profileID})}"><span class="bi bi-trash"></span></a></td> -->
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <a href="/userProfile/createForm"><button class="btn btn-primary float-end mt-1">Create New Profile</button></a> -->
+    </div>
+</body>
+
+</html>

@@ -16,7 +16,6 @@ import com.seveneleven.cafe_punch.controllers_service.SearchUserProfileControlle
 import com.seveneleven.cafe_punch.controllers_service.SuspendUserProfileController;
 import com.seveneleven.cafe_punch.controllers_service.UpdateUserProfileController;
 import com.seveneleven.cafe_punch.controllers_service.ViewUserProfileController;
-import com.seveneleven.cafe_punch.models.UserAccount;
 import com.seveneleven.cafe_punch.models.UserProfile;
 
 import jakarta.servlet.http.HttpSession;

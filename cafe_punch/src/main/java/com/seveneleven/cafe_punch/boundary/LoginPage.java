@@ -44,10 +44,13 @@ public class LoginPage {
             // Set session attributes
             session.setAttribute("currentUserID", userAccount.getEmpID());
             session.setAttribute("loginRole", loginRole);
+            session.setAttribute("userName", loginController.getUserName(userAccount.getEmpID()).getLastName() + " " + loginController.getUserName(userAccount.getEmpID()).getFirstName());
             System.out.println("Setting currentUser as " + session.getAttribute("currentUserID"));
 
             if(loginRole.equals("Admin"))
                 return "redirect:/userAccount/";
+            else if(loginRole.equals("Owner"))
+                return "redirect:/staffList/";
             return "redirect:/";
         } else {
             return "redirect:/";

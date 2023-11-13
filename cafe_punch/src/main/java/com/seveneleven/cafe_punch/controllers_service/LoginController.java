@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.seveneleven.cafe_punch.entity.UserAccountEntity;
+import com.seveneleven.cafe_punch.models.UserAccount;
 
 @Service
 public class LoginController {
@@ -14,5 +15,9 @@ public class LoginController {
     public boolean validateCredentials(String empID, String password, String loginRole){
 
         return UserAccount.validateCredentials(empID, password, loginRole);
+    }
+
+    public UserAccount getUserName(String empID){
+        return UserAccount.getUserAccountByID(empID);
     }
 }
