@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/ownerLayout}">
+
+<body>
+    <div layout:fragment="content" class="mb-4">
+    <main id="main" class="main cd_main">
+
+        <div class="pagetitle">
+          <h1>Update Workslot</h1>
+        </div><!-- End Page Title -->
+
+        <!--Start of Form-->
+        <form action="#" method="post" th:action="@{'update/' + ${workslot.wsID}}" th:object="${workslot}">
+            <div class="row mb-3">
+                <label for="date" class="col-sm-2 col-form-label">Date</label>
+                <div class="col-sm-5">
+                  <input th:field="*{date}" type="date" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Start Time</label>
+              <div class="col-sm-5">
+                <input th:field="*{startTime}" type="time" class="form-control">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">End Time</label>
+              <div class="col-sm-5">
+                <input th:field="*{endTime}" type="time" class="form-control">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Cashier Needed</label>
+              <div class="col-sm-5">
+                <input th:field="*{noOfCashier}" type="number" class="form-control">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Chef Needed</label>
+              <div class="col-sm-5">
+                <input th:field="*{noOfChef}" type="number" class="form-control">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label">Waiter Needed</label>
+              <div class="col-sm-5">
+                <input th:field="*{noOfWaiter}" type="number" class="form-control">
+              </div>
+            </div>
+
+            <div class="col-sm-10 text-center">
+                <button type="submit" class="btn btn-primary">Update Workslot</button>
+            </div>
+
+          </form>
+          <!-- End of Form-->
+    </div>
+</body>
+
+</html>

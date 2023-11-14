@@ -50,7 +50,7 @@ public class LoginPage {
             if(loginRole.equals("Admin"))
                 return "redirect:/userAccount/";
             else if(loginRole.equals("Owner"))
-                return "redirect:/staffList/";
+                return "redirect:/workslot/";
             return "redirect:/";
         } else {
             return "redirect:/";

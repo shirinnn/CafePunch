@@ -15,6 +15,7 @@ public class ViewStaffListController {
 
     @Autowired
     StaffDetailsEntity StaffDetails;
+    
     public List<UserAccount> viewStaffList(){
         return StaffDetails.viewStaffList();
     }

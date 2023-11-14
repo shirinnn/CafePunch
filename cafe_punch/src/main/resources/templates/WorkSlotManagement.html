@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/ownerLayout}">
+
+<body>
+    <div layout:fragment="content" class="mb-4">
+    <main id="main" class="main cd_main">
+
+        <div class="pagetitle">
+          <h1>Workslot Management</h1>
+        </div><!-- End Page Title -->
+
+            <form action="#" method="post" th:action="@{search}">
+                <div class="row mb-3">
+                    <div class="col-sm-7"></div>
+                    <div class="col-sm-4">
+                        <input class="form-control col-sm-3" type="text" name="date" th:value="${date}" placeholder="Search By Date(eg. 2023-11-01)">
+                    </div>
+                    <button class="btn btn-primary col-sm-1">Search</button>
+                </div>
+            </form>
+
+            <table id="workSlotTable" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Workslot ID</th>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Cashier Needed</th>
+                        <th>Chef Needed</th>
+                        <th>Waiter Needed</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="ws : ${workslots}">
+                        <td th:text="${ws.wsID}"></td>
+                        <td th:text="${ws.date}"></td>
+                        <td th:text="${ws.startTime}"></td>
+                        <td th:text="${ws.endTime}"></td>
+                        <td th:text="${ws.noOfCashier}"></td>
+                        <td th:text="${ws.noOfChef}"></td>
+                        <td th:text="${ws.noOfWaiter}"></td>
+                        <td><a th:href="@{/workslot/updateForm/{wsID}(wsID=${ws.wsID})}"><span class="bi bi-pencil-square"></span></a></td>
+                        <td><a th:href="@{/workslot/delete/{wsID}(wsID=${ws.wsID})}"><span class="bi bi-trash"></span></a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="/workslot/createForm"><button class="btn btn-primary float-end mt-1">Create WorkSlot</button></a>
+    </div>
+</body>
+
+</html>

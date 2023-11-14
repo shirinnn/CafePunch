@@ -15,20 +15,21 @@ import com.seveneleven.cafe_punch.models.UserProfile;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/staffList")
-public class CafeOwnerPages {
+@RequestMapping("/staff")
+public class StaffListPage {
 
     @Autowired
     ViewStaffListController ViewController;
     
-    @GetMapping("/")
+    // Owner Staff List
+    @GetMapping("/viewList")
     public String viewStaffList(HttpSession session, Model model){
         // getting session attributes
         String currentUserID = (String) session.getAttribute("currentUserID");
         String userName = (String) session.getAttribute("userName");
         String loginRole = (String) session.getAttribute("loginRole");
 
-        // Redirect non-admin user away and users who access via url
+        // Redirect non-owner user away and users who access via url
         if (currentUserID == null || !loginRole.equals("Owner")){
             return "redirect:/";
         }
