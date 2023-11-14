@@ -38,6 +38,21 @@ public class WorkSlotEntity {
         }
     }
 
+    public List<WorkSlot> getWSByRole(String role){
+        List<WorkSlot> results;
+
+        if (role.equals("Cashier"))
+            results = jdbcTemplate.query("SELECT * FROM workslots WHERE noOfCashier > 0", new WorkSlotMapper());
+        else if(role.equals("Chef"))
+            results = jdbcTemplate.query("SELECT * FROM workslots WHERE noOfChef > 0", new WorkSlotMapper());
+        else if (role.equals("Waiter"))
+            results = jdbcTemplate.query("SELECT * FROM workslots WHERE noOfWaiter > 0", new WorkSlotMapper());
+        else 
+            results = jdbcTemplate.query("SELECT * FROM workslots WHERE noOfCashier > 0 AND noOfChef > 0 AND noOfWaiter > 0", new WorkSlotMapper());
+
+        return results;
+    }
+
     public List<WorkSlot> searchWorkSlot(String date){
         List<WorkSlot> results = jdbcTemplate.query("SELECT * FROM workslots WHERE date LIKE ?", new WorkSlotMapper(),
                                                             "%"+ date +"%");

@@ -17,4 +17,8 @@ public class ViewWorkSlotController {
     public List<WorkSlot> viewWorkSlot(){
         return WorkSlot.viewWorkSlot();
     }
+
+    public List<WorkSlot> getWSByRole(String role){
+        return WorkSlot.getWSByRole(role);
+    }
 }

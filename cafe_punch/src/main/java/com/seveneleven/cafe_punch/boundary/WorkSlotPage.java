@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.seveneleven.cafe_punch.controllers_service.CreateBidController;
 import com.seveneleven.cafe_punch.controllers_service.CreateWorkSlotController;
 import com.seveneleven.cafe_punch.controllers_service.DeleteWorkSlotController;
 import com.seveneleven.cafe_punch.controllers_service.SearchWorkSlotController;
@@ -186,11 +187,13 @@ public class WorkSlotPage {
         }
 
         Staff staff = viewStaffListController.getStaffByID(currentUserID); 
+        List<WorkSlot> workslots = viewWorkSlotController.getWSByRole(staff.getRole());
 
          // attribute to pass to html
         model.addAttribute("userName", userName); // For the nav bar user name
         model.addAttribute("empID", currentUserID); // For the nav bar emp ID
         model.addAttribute("staff", new Staff(staff.getEmpID(), staff.getRole(), staff.getMaxWorkSlot(), staff.getAvailableWorkSlot()));
+        model.addAttribute("workslots", workslots);
 
         return "AvailableWorkSlotView";
     }
@@ -219,6 +222,25 @@ public class WorkSlotPage {
             return "redirect:/workslot/availableWorkSlot";
         }
     }
+
+    @Autowired
+    CreateBidController createBidController;
+
+    @GetMapping("/availableWorkSlot/bidSlot/{wsID}/{role}")
+    public String bidSlot(Model model, HttpSession session, @PathVariable(name="wsID")int wsID, @PathVariable(name="role") String role, RedirectAttributes redirAttr){
+
+        // getting session attributes
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        boolean result = createBidController.createBid(currentUserID, wsID, role);
+
+        if (result){
+            redirAttr.addFlashAttribute("message", "bid successfully!");
+            return "redirect:/workslot/availableWorkSlot";
+        }
+        else
+            return "redirect:/workslot/availableWorkSlot";
+    }
+    
 
 }
 

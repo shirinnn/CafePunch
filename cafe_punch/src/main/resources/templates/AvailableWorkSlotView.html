@@ -54,7 +54,6 @@
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th></th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,8 +61,7 @@
                         <td th:text="${ws.date}"></td>
                         <td th:text="${ws.startTime}"></td>
                         <td th:text="${ws.endTime}"></td>
-                        <td><a th:href="@{/workslot/updateForm/{wsID}(wsID=${ws.wsID})}"><button class="btn btn-primary">Bid</button></a></td>
-                        <td><a th:href="@{/workslot/delete/{wsID}(wsID=${ws.wsID})}"><span class="bi bi-trash"></span></a></td>
+                        <td><a th:href="@{/workslot/availableWorkSlot/bidSlot/{wsID}/{role}(wsID=${ws.wsID}, role=${staff.role})}"><button class="btn btn-primary">Bid</button></a></td>
                     </tr>
                 </tbody>
             </table>
