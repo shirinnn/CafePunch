@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seveneleven.cafe_punch.controllers_service.CreateWorkSlotController;
 import com.seveneleven.cafe_punch.controllers_service.DeleteWorkSlotController;
 import com.seveneleven.cafe_punch.controllers_service.SearchWorkSlotController;
+import com.seveneleven.cafe_punch.controllers_service.UpdateStaffDetailController;
 import com.seveneleven.cafe_punch.controllers_service.UpdateWorkSlotController;
+import com.seveneleven.cafe_punch.controllers_service.ViewStaffListController;
 import com.seveneleven.cafe_punch.controllers_service.ViewWorkSlotController;
+import com.seveneleven.cafe_punch.models.Staff;
 import com.seveneleven.cafe_punch.models.WorkSlot;
 
 import jakarta.servlet.http.HttpSession;
@@ -111,12 +115,11 @@ public class WorkSlotPage {
     }
 
     @PostMapping("/updateForm/update/{wsID}")
-    public String updateProfile(WorkSlot workslot, Model model, @PathVariable(name="wsID") String wsID){
+    public String updateWorkSlot(WorkSlot workslot, Model model, @PathVariable(name="wsID") String wsID){
 
         // post data from userAccount attributes in html
         model.addAttribute("workslot", workslot);
 
-        //boolean result = UpdateController.updateProfile(profile);
         boolean result = updateWorkSlotController.updateWorkSlot(workslot);
 
         if (result){
@@ -130,7 +133,7 @@ public class WorkSlotPage {
     DeleteWorkSlotController deleteWorkSlotController;
 
     @GetMapping("/delete/{wsID}")
-    public String SuspendProfile(Model model, @PathVariable(name="wsID") int wsID){
+    public String DeleteWorkSlot(Model model, @PathVariable(name="wsID") int wsID){
 
         boolean result = deleteWorkSlotController.deleteWorkslot(wsID);
 
@@ -145,7 +148,7 @@ public class WorkSlotPage {
     SearchWorkSlotController searchWorkSlotController;
 
     @PostMapping("/search")
-    public String UserProfileSearch(@RequestParam String date,Model model, HttpSession session){
+    public String WorkSlotSearch(@RequestParam String date,Model model, HttpSession session){
 
         // getting session attributes
         String currentUserID = (String) session.getAttribute("currentUserID");
@@ -166,5 +169,56 @@ public class WorkSlotPage {
 
         return "WorkSlotManagement.html";
     }
+
+    @Autowired 
+    ViewStaffListController viewStaffListController;
+
+    // FOR CAFE STAFF to view available workslots to bid
+    @GetMapping("/availableWorkSlot")
+    public String viewAvaibaleWorkSlot(Model model, HttpSession session){
+        // getting session attributes
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        String userName = (String) session.getAttribute("userName");
+        String loginRole = (String) session.getAttribute("loginRole");
+        
+        if (currentUserID == null || !loginRole.equals("Staff")){
+            return "redirect:/";
+        }
+
+        Staff staff = viewStaffListController.getStaffByID(currentUserID); 
+
+         // attribute to pass to html
+        model.addAttribute("userName", userName); // For the nav bar user name
+        model.addAttribute("empID", currentUserID); // For the nav bar emp ID
+        model.addAttribute("staff", new Staff(staff.getEmpID(), staff.getRole(), staff.getMaxWorkSlot(), staff.getAvailableWorkSlot()));
+
+        return "AvailableWorkSlotView";
+    }
+
+    @Autowired
+    UpdateStaffDetailController updateStaffDetailController;
+
+    @PostMapping("/availableWorkSlot/updateStaff")
+    public String updateStaff(Staff staff, Model model, HttpSession session, RedirectAttributes redirAttr){
+
+        // getting session attributes
+        String currentUserID = (String) session.getAttribute("currentUserID");
+
+        staff.setEmpID(currentUserID);
+        if (staff.getAvailableWorkSlot() > staff.getMaxWorkSlot())
+            staff.setAvailableWorkSlot(staff.getMaxWorkSlot());
+
+        model.addAttribute("staff", staff);
+
+        boolean result = updateStaffDetailController.updateStaffDetail(staff);
+
+        if (result){
+            redirAttr.addFlashAttribute("message", "update successfully!");
+            return "redirect:/workslot/availableWorkSlot";
+        } else {
+            return "redirect:/workslot/availableWorkSlot";
+        }
+    }
+
 }
 

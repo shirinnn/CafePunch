@@ -51,6 +51,8 @@ public class LoginPage {
                 return "redirect:/userAccount/";
             else if(loginRole.equals("Owner"))
                 return "redirect:/workslot/";
+            else if(loginRole.equals("Staff"))
+                return "redirect:/workslot/availableWorkSlot";
             return "redirect:/";
         } else {
             return "redirect:/";

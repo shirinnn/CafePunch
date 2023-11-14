@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/staffLayout}">
+
+<body>
+    <div layout:fragment="content" class="mb-4">
+    <main id="main" class="main cd_main">
+
+        <div class="pagetitle">
+          <h1>Workslots Available For Bidding</h1>
+        </div><!-- End Page Title -->
+
+            <form action="#" method="post" th:action="@{availableWorkSlot/updateStaff}" th:object="${staff}">
+                <div class="row mb-3">
+                    <div class="col-sm-8"><label class="col-form-label">Available slots</label></div>
+                        <label class="col-sm-2 col-form-label">Cafe Role</label>
+                        <div class="col-sm-2">
+                            <select th:field=*{role} class="form-select" aria-label="Cafe Role">
+                                <option th:value="Cashier">Cashier</option>
+                                <option th:value="Chef">Chef</option>
+                                <option th:value="Waiter">Waiter</option>
+                            </select>
+                        </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-sm-8">
+                        <div class="col-sm-1"><input class="form-control" th:field="*{availableWorkSlot}" readonly></div>
+                    </div>
+                    <label class="col-sm-2 col-form-label">Max Work Slot</label>
+                    <div class="col-sm-2">
+                        <select th:field=*{maxWorkSlot} class="form-select" aria-label="Max Workslot">
+                            <option th:value="1">1</option>
+                            <option th:value="2">2</option>
+                            <option th:value="3">3</option>
+                            <option th:value="4">4</option>
+                            <option th:value="5">5</option>
+                            <option th:value="6">6</option>
+                        </select>
+                    </div>
+                </div>
+                    
+                <div class="row mb-3">
+                    <div class="col-sm-11">
+                    </div>
+                    <button class="btn btn-primary col-sm-1">Update</button>
+                </div>
+            </form>
+            <p style="color: green;" class="float-end"th:text="${message}"></p>
+
+            <table id="workSlotTable" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="ws : ${workslots}">
+                        <td th:text="${ws.date}"></td>
+                        <td th:text="${ws.startTime}"></td>
+                        <td th:text="${ws.endTime}"></td>
+                        <td><a th:href="@{/workslot/updateForm/{wsID}(wsID=${ws.wsID})}"><button class="btn btn-primary">Bid</button></a></td>
+                        <td><a th:href="@{/workslot/delete/{wsID}(wsID=${ws.wsID})}"><span class="bi bi-trash"></span></a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <a href="/workslot/createForm"><button class="btn btn-primary float-end mt-1">Create WorkSlot</button></a> -->
+    </div>
+</body>
+
+</html>

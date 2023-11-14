@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.seveneleven.cafe_punch.entity.StaffDetailsEntity;
 import com.seveneleven.cafe_punch.entity.UserProfileEntity;
+import com.seveneleven.cafe_punch.models.Staff;
 import com.seveneleven.cafe_punch.models.UserAccount;
 import com.seveneleven.cafe_punch.models.UserProfile;
 
@@ -18,6 +19,10 @@ public class ViewStaffListController {
     
     public List<UserAccount> viewStaffList(){
         return StaffDetails.viewStaffList();
+    }
+
+    public Staff getStaffByID(String empID){
+        return StaffDetails.getStaffByID(empID);
     }
 
     @Autowired
