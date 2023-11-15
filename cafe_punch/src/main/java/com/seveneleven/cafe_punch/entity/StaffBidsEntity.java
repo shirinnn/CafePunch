@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.seveneleven.cafe_punch.models.StaffBid;
+import com.seveneleven.cafe_punch.models.StaffBidMapper;
+
 
 @Repository
 public class StaffBidsEntity {
@@ -45,10 +48,28 @@ public class StaffBidsEntity {
         return result;
     }
 
-    // public List<StaffB> viewBids()
-    // {
-    //     // sql statement to get all user Accounts
-    //     List<UserProfile> results = jdbcTemplate.query("SELECT * FROM userprofiles", new UserProfileMapper());
-    //     return results;
-    // }
+    public List<StaffBid> viewBidsByID(String empID)
+    {
+        // sql statement to get all user Accounts
+        List<StaffBid> results = jdbcTemplate.query("SELECT * FROM staffbids LEFT JOIN workslots ON staffbids.wsID=workslots.wsID WHERE empID=?", new StaffBidMapper(), empID);
+        return results;
+    }
+
+    public List<StaffBid> searchBidsByStatus(String empID, String status)
+    {
+        // sql statement to get all user Accounts
+        List<StaffBid> results = jdbcTemplate.query("SELECT * FROM staffbids LEFT JOIN workslots ON staffbids.wsID=workslots.wsID WHERE empID=? AND status=?", new StaffBidMapper(), empID, status);
+        return results;
+    }
+
+    public boolean deleteBid(int bID){
+
+        int result = jdbcTemplate.update("DELETE FROM staffbids WHERE bID=?", bID);
+
+        if (result > 0){
+            return true;
+        } else {
+            return false;
+        }
+    } 
 }
