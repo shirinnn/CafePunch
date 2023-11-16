@@ -62,4 +62,10 @@ public class StaffDetailsEntity {
         return results;
     }
 
+    public List<Staff> viewStaffsByRole(String role){
+        List<Staff> results = jdbcTemplate.query("SELECT * FROM staffs LEFT JOIN useraccounts ON staffs.empID=useraccounts.empID WHERE role=?", new StaffMapper(), role);
+
+        return results;
+    }
+
 }

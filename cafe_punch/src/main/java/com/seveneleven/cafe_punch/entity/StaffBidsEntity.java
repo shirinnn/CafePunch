@@ -170,4 +170,18 @@ public class StaffBidsEntity {
         else
             return false;
     }
+
+    public boolean updateSlot(int bID, String empID){
+        int result = jdbcTemplate.update("UPDATE staffbids SET empID=?, status='Assigned' WHERE bID=?", empID, bID);
+
+        if (result > 0){
+            if(jdbcTemplate.update("UPDATE staffs SET availableWorkSlot=availableWorkSlot-1 WHERE empID=?", empID)!=0){
+                return true;
+            }
+            else
+                return false;
+        } else {
+            return false;
+        }
+    }
 }

@@ -29,6 +29,10 @@ public class ViewStaffListController {
         return StaffDetails.getStaffByID(empID);
     }
 
+    public List<Staff> viewStaffsByRole(String role){
+        return StaffDetails.viewStaffsByRole(role);
+    }
+
     @Autowired
     UserProfileEntity userProfile;
     public List<UserProfile> getProfiles()

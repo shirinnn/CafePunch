@@ -3,6 +3,7 @@ package com.seveneleven.cafe_punch.controllers_service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.seveneleven.cafe_punch.entity.StaffBidsEntity;
 import com.seveneleven.cafe_punch.entity.WorkSlotEntity;
 import com.seveneleven.cafe_punch.models.WorkSlot;
 
@@ -19,5 +20,12 @@ public class UpdateWorkSlotController {
 
     public WorkSlot getWSByID(int wsID){
         return WorkSlot.getWSByID(wsID);
+    }
+
+    @Autowired
+    StaffBidsEntity staffBids;
+
+    public boolean updateSlot(int bID, String empID){
+        return staffBids.updateSlot(bID, empID);
     }
 }
