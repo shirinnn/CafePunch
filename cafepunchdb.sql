@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 14, 2023 at 05:47 AM
+-- Generation Time: Nov 16, 2023 at 10:28 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -34,6 +34,16 @@ CREATE TABLE `staffbids` (
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `staffbids`
+--
+
+INSERT INTO `staffbids` (`bID`, `empID`, `wsID`, `status`) VALUES
+(1, 'test-03', 1, 'Assigned'),
+(3, 'test-01', 2, 'Rejected'),
+(6, 'test-01', 2, 'Approved'),
+(7, 'test-03', 2, 'Approved');
+
 -- --------------------------------------------------------
 
 --
@@ -52,7 +62,8 @@ CREATE TABLE `staffs` (
 --
 
 INSERT INTO `staffs` (`empID`, `role`, `maxWorkSlot`, `availableWorkSlot`) VALUES
-('test-01', 'Waiter', 4, 3);
+('test-01', 'Waiter', 4, 2),
+('test-03', 'Waiter', 5, 3);
 
 -- --------------------------------------------------------
 
@@ -77,10 +88,12 @@ CREATE TABLE `useraccounts` (
 
 INSERT INTO `useraccounts` (`empID`, `firstName`, `lastName`, `email`, `gender`, `password`, `profileID`, `status`) VALUES
 ('A-001', 'Jun', 'Choi', 'junnie@gmail.com', 'M', '123456', 1, 'Active'),
+('admin', 'Admin', 'Person1', 'admin@admin.com', 'M', '123456', 5, 'Active'),
 ('M-001', 'Noah', 'Han', 'hannoah@gmail.com', 'M', '123456', 2, 'Active'),
 ('test-01', 'TestFirst', 'TestLast1', 'test@test.com', 'F', '123456', 3, 'Active'),
-('test-02', 'Test2', 'Test2-1', 'test@test2.com', 'M', '12345', 2, 'Suspend'),
-('Test3', 'Ronald', 'Mac', 'ronmac@google.com', 'M', '12345', 1, 'Active');
+('test-02', 'Test2', 'Test2-1', 'test@test2.com', 'M', '123456', 2, 'Suspend'),
+('test-03', 'Sarah', 'Tan', 'sarahtan@test.com', 'F', '123456', 3, 'Active'),
+('Test3', 'Ronald', 'Mac', 'ronmac@google.com', 'M', '123456', 1, 'Active');
 
 -- --------------------------------------------------------
 
@@ -102,7 +115,7 @@ INSERT INTO `userprofiles` (`profileID`, `profileName`, `permissionType`) VALUES
 (1, 'Cafe Owner', 'Owner'),
 (2, 'Cafe Manager', 'Manager'),
 (3, 'Full Timer Staff', 'Staff'),
-(5, 'TestStaff1', 'Staff');
+(5, 'Admin', 'Admin');
 
 -- --------------------------------------------------------
 
@@ -125,12 +138,18 @@ CREATE TABLE `workslots` (
 --
 
 INSERT INTO `workslots` (`wsID`, `date`, `startTime`, `endTime`, `noOfCashier`, `noOfChef`, `noOfWaiter`) VALUES
-(1, '2023-10-23', '08:00', '21:00', 1, 2, 4),
-(2, '2023-11-01', '09:00', '21:00', 1, 1, 3);
+(1, '2023-10-23', '08:00', '21:00', 1, 2, 2),
+(2, '2023-11-01', '09:00', '21:00', 1, 0, 2);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `staffbids`
+--
+ALTER TABLE `staffbids`
+  ADD PRIMARY KEY (`bID`);
 
 --
 -- Indexes for table `staffs`
@@ -161,6 +180,12 @@ ALTER TABLE `workslots`
 --
 
 --
+-- AUTO_INCREMENT for table `staffbids`
+--
+ALTER TABLE `staffbids`
+  MODIFY `bID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `userprofiles`
 --
 ALTER TABLE `userprofiles`
@@ -170,7 +195,7 @@ ALTER TABLE `userprofiles`
 -- AUTO_INCREMENT for table `workslots`
 --
 ALTER TABLE `workslots`
-  MODIFY `wsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `wsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
