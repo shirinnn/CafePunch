@@ -3,6 +3,10 @@ package com.seveneleven.cafe_punch.models;
 public class StaffBid {
     int bID;
     String empID;
+    String firstName;
+    String lastName;
+    String role;
+    int availableWorkSlot;
     int wsID;
     String date;
     String startTime;
@@ -11,9 +15,13 @@ public class StaffBid {
 
     public StaffBid() {
     }
-    public StaffBid(int bID, String empID, int wsID, String date, String startTime, String endTime, String status) {
+    public StaffBid(int bID, String empID, String firstName, String lastName, String role, int availableWorkSlot, int wsID, String date, String startTime, String endTime, String status) {
         this.bID = bID;
         this.empID = empID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.availableWorkSlot = availableWorkSlot;
         this.wsID = wsID;
         this.date = date;
         this.startTime = startTime;
@@ -63,5 +71,31 @@ public class StaffBid {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
+    public int getAvailableWorkSlot() {
+        return availableWorkSlot;
+    }
+    public void setAvailableWorkSlot(int availableWorkSlot) {
+        this.availableWorkSlot = availableWorkSlot;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    
     
 }

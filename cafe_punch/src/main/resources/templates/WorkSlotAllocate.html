@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/managerLayout}">
+
+<body>
+    <div layout:fragment="content" class="mb-4">
+    <main id="main" class="main cd_main">
+
+        <div class="pagetitle">
+          <h1>Workslot Allocation</h1>
+        </div><!-- End Page Title -->
+
+            <!-- <form action="#" method="post" th:action="@{search}">
+                <div class="row mb-3">
+                    <div class="col-sm-7"></div>
+                    <div class="col-sm-4">
+                        <input class="form-control col-sm-3" type="text" name="date" th:value="${date}" placeholder="Search By Date(eg. 2023-11-01)">
+                    </div>
+                    <button class="btn btn-primary col-sm-1">Search</button>
+                </div>
+            </form> -->
+
+            <table id="workSlotTable" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Workslot ID</th>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="ws : ${workslots}">
+                        <td th:text="${ws.wsID}"></td>
+                        <td th:text="${ws.date}"></td>
+                        <td th:text="${ws.startTime}"></td>
+                        <td th:text="${ws.endTime}"></td>
+                        <td><a th:href="@{/staff/wsList/allocate/{empID}/{wsID}/{role}(empID=${eID}, wsID=${ws.wsID}, role=${role})}"><button class="btn btn-primary">Allocate</button></a></td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+</body>
+
+</html>

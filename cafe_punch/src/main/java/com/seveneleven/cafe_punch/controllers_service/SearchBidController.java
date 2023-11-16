@@ -16,4 +16,8 @@ public class SearchBidController {
     public List<StaffBid> searchBidsByStatus(String empID, String status){
         return staffBids.searchBidsByStatus(empID, status);
     }
+
+    public List<StaffBid> searchBidsReviewByStatus(String status){
+        return staffBids.searchBidsReviewByStatus(status);
+    }
 }

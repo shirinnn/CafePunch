@@ -9,7 +9,7 @@ public class StaffMapper implements RowMapper<Staff>{
 
     @Override
     public Staff mapRow(ResultSet rs, int rowNum) throws SQLException {
-        Staff staff = new Staff(rs.getString("empID"), rs.getString("role"), rs.getInt("maxWorkSlot"), rs.getInt("availableWorkSlot"));
+        Staff staff = new Staff(rs.getString("empID"), rs.getString("role"), rs.getString("firstName"), rs.getString("lastName"), rs.getInt("maxWorkSlot"), rs.getInt("availableWorkSlot"));
 
         return staff;
     }

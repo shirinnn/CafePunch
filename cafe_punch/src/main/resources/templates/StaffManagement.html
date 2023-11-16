@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/managerLayout}">
+
+<body>
+    <div layout:fragment="content" class="mb-4">
+    <main id="main" class="main cd_main">
+
+        <div class="pagetitle">
+          <h1>Staff Management</h1>
+        </div><!-- End Page Title -->
+
+            <!-- <form action="#" method="post" th:action="@{search}">
+                <div class="row mb-3">
+                    <div class="col-sm-7"></div>
+                    <div class="col-sm-4">
+                        <input class="form-control col-sm-3" type="text" name="name" th:value="${name}" placeholder="Search By Name...">
+                    </div>
+                    <button class="btn btn-primary col-sm-1">Search</button>
+                </div>
+            </form> -->
+
+            <table id="StaffManagementTable" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Max Slot</th>
+                        <th>Available Slot</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="staff : ${staffs}">
+                        <td th:text="${staff.empID}"></td>
+                        <td th:text="${staff.lastName} + ' ' + ${staff.firstName}"></td>
+                        <td th:text="${staff.maxWorkSlot}"></td>
+                        <td th:text="${staff.availableWorkSlot}"></td>
+                        <td th:if="${staff.availableWorkSlot} > 0"><a th:href="@{/staff/wsList/{empID}/{role}(role=${staff.role}, empID=${staff.empID})}"><button class="btn btn-primary">Allocate</button></a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <a href="/userProfile/createForm"><button class="btn btn-primary float-end mt-1">Create New Profile</button></a> -->
+    </div>
+</body>
+
+</html>

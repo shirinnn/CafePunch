@@ -32,7 +32,7 @@ public class StaffDetailsEntity {
     }
 
     public Staff getStaffByID(String empID){
-        List<Staff> results = jdbcTemplate.query("SELECT * FROM staffs WHERE empID = ?", new StaffMapper(), empID);
+        List<Staff> results = jdbcTemplate.query("SELECT * FROM staffs LEFT JOIN useraccounts ON staffs.empID=useraccounts.empID WHERE staffs.empID = ?", new StaffMapper(), empID);
 
         if(results.size() > 0){
             return results.get(0);
@@ -54,6 +54,12 @@ public class StaffDetailsEntity {
         } else {
             return false;
         }
+    }
+
+    public List<Staff> viewStaffs(){
+        List<Staff> results = jdbcTemplate.query("SELECT * FROM staffs LEFT JOIN useraccounts ON staffs.empID=useraccounts.empID", new StaffMapper());
+
+        return results;
     }
 
 }

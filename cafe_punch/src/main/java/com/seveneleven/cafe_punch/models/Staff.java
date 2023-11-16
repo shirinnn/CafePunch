@@ -3,16 +3,20 @@ package com.seveneleven.cafe_punch.models;
 public class Staff {
     String empID;
     String role;
+    String firstName;
+    String lastName;
     int maxWorkSlot;
     int availableWorkSlot;
 
 
     public Staff() {
     }
-
-    public Staff(String empID, String role, int maxWorkSlot, int availableWorkSlot) {
+    
+    public Staff(String empID, String role, String firstName, String lastName, int maxWorkSlot, int availableWorkSlot) {
         this.empID = empID;
         this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.maxWorkSlot = maxWorkSlot;
         this.availableWorkSlot = availableWorkSlot;
     }
@@ -47,6 +51,24 @@ public class Staff {
 
     public void setAvailableWorkSlot(int availableWorkSlot) {
         this.availableWorkSlot = availableWorkSlot;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }    
+
+    
     
 }

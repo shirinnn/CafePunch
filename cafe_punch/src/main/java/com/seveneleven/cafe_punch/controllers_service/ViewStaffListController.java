@@ -21,6 +21,10 @@ public class ViewStaffListController {
         return StaffDetails.viewStaffList();
     }
 
+    public List<Staff> viewStaffs(){
+        return StaffDetails.viewStaffs();
+    }
+
     public Staff getStaffByID(String empID){
         return StaffDetails.getStaffByID(empID);
     }

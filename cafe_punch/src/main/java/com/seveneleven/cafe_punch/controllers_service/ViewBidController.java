@@ -17,4 +17,8 @@ public class ViewBidController {
     public List<StaffBid> viewBidsByID(String empID){
         return staffBidsEntity.viewBidsByID(empID);
     }
+
+    public List<StaffBid> viewAllBids(){
+        return staffBidsEntity.viewAllBids();
+    }
 }

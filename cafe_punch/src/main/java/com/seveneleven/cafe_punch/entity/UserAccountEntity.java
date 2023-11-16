@@ -27,20 +27,14 @@ public class UserAccountEntity {
         // sql statement 
         boolean result;
 
-        if (!loginRole.equals("Admin")){
+        if (!loginRole.isEmpty()){
             result = !jdbcTemplate.query("SELECT * FROM useraccounts LEFT JOIN userprofiles ON useraccounts.profileID=userprofiles.profileID" + 
                                                     " WHERE empID = ? AND password = ? AND permissionType = ?", new UserAccountMapper(), 
                                                     empID, password, loginRole).isEmpty();
+            System.out.println(result);
         }
-        else{
-            if (empID.equals("admin") && password.equals("12345"))
-            {
-                result = true;
-            }
-            else{
-                result = false;
-            }
-        }
+        else
+            result = false;
                     
         return result;
     }

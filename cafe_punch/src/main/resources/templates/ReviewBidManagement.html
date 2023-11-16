@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/managerLayout}">
+
+<body>
+    <div layout:fragment="content" class="mb-4">
+    <main id="main" class="main cd_main">
+
+        <div class="pagetitle">
+          <h1>Review Bids</h1>
+        </div><!-- End Page Title -->
+
+            <form action="#" method="post" th:action="@{/bid/review/search}">
+                <div class="row mb-3">
+                    <div class="col-sm-7"></div>
+                    <div class="col-sm-4">
+                        <input class="form-control col-sm-3" type="text" name="status" th:value="${status}" placeholder="Search By Status(eg. Pending, Approved)">
+                    </div>
+                    <button class="btn btn-primary col-sm-1">Search</button>
+                </div>
+            </form>
+
+            <table id="BidTable" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Employee Available Slot</th>
+                        <th>Role</th>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="bid : ${bids}">
+                        <td th:text="${bid.lastName} + ' ' + ${bid.firstName}"></td>
+                        <td th:text="${bid.availableWorkSlot}"></td>
+                        <td th:text="${bid.role}"></td>
+                        <td th:text="${bid.date}"></td>
+                        <td th:text="${bid.startTime}"></td>
+                        <td th:text="${bid.endTime}"></td>
+                        <td th:text="${bid.status}"></td>
+                        <td th:if="${bid.status} == 'Pending'"><a th:href="@{/bid/review/approve/{empID}/{bID}/{wsID}/{role}(empID=${bid.empID} ,bID=${bid.bID}, wsID=${bid.wsID}, role=${bid.role})}"><span class="bi bi-check-circle-fill"></span></a></td>
+                        <td th:if="${bid.status} == 'Pending'"><a th:href="@{/bid/review/reject/{bID}(bID=${bid.bID})}"><span class="bi bi-x-circle"></span></a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <a href="/workslot/createForm"><button class="btn btn-primary float-end mt-1">Create WorkSlot</button></a> -->
+    </div>
+</body>
+
+</html>

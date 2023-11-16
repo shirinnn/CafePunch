@@ -39,6 +39,7 @@ public class LoginPage {
         model.addAttribute("userAccount", userAccount);
 
         boolean validated = loginController.validateCredentials(userAccount.getEmpID(), userAccount.getPassword(), loginRole);
+        System.out.println(validated);
         if (validated){
             
             // Set session attributes
@@ -53,6 +54,8 @@ public class LoginPage {
                 return "redirect:/workslot/";
             else if(loginRole.equals("Staff"))
                 return "redirect:/workslot/availableWorkSlot";
+            else if(loginRole.equals("Manager"))
+                return "redirect:/bid/review";
             return "redirect:/";
         } else {
             return "redirect:/";

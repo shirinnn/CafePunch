@@ -192,7 +192,7 @@ public class WorkSlotPage {
          // attribute to pass to html
         model.addAttribute("userName", userName); // For the nav bar user name
         model.addAttribute("empID", currentUserID); // For the nav bar emp ID
-        model.addAttribute("staff", new Staff(staff.getEmpID(), staff.getRole(), staff.getMaxWorkSlot(), staff.getAvailableWorkSlot()));
+        model.addAttribute("staff", new Staff(staff.getEmpID(), staff.getRole(), "", "", staff.getMaxWorkSlot(), staff.getAvailableWorkSlot()));
         model.addAttribute("workslots", workslots);
 
         return "AvailableWorkSlotView";

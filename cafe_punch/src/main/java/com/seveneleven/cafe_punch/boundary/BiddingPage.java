@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.seveneleven.cafe_punch.controllers_service.DeleteBidController;
+import com.seveneleven.cafe_punch.controllers_service.ReviewBidController;
 import com.seveneleven.cafe_punch.controllers_service.SearchBidController;
 import com.seveneleven.cafe_punch.controllers_service.ViewBidController;
 import com.seveneleven.cafe_punch.models.StaffBid;
@@ -81,6 +82,74 @@ public class BiddingPage {
             return "redirect:/bid/status";
         else
             return "redirect:/";
+    }
+
+    @GetMapping("/review")
+    public String reviewBid(Model model, HttpSession session){
+
+        // getting session attributes
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        String userName = (String) session.getAttribute("userName");
+        String loginRole = (String) session.getAttribute("loginRole");
+        
+        // if (currentUserID == null || !loginRole.equals("Manager")){
+        //     return "redirect:/";
+        // }
+
+        List<StaffBid> bids = viewBidController.viewAllBids();
+
+        model.addAttribute("userName", userName); // For the nav bar user name
+        model.addAttribute("empID", currentUserID); // For the nav bar emp ID
+        model.addAttribute("bids", bids);
+
+        return "ReviewBidManagement";
+    }
+
+    @Autowired
+    ReviewBidController reviewBidController;
+
+    @GetMapping("/review/approve/{empID}/{bID}/{wsID}/{role}")
+    public String approveBid(Model model, HttpSession session, @PathVariable(name="empID") String empID, @PathVariable(name="bID") int bID, @PathVariable(name="wsID") int wsID, @PathVariable(name="role") String role){
+
+        boolean result = reviewBidController.approveBid(empID, bID, wsID, role);
+
+        if (result){
+            return "redirect:/bid/review";
+        }
+        // set a flash message
+        return "redirect:/bid/review";
+    }
+
+    @GetMapping("/review/reject/{bID}")
+    public String rejectBid(Model model, HttpSession session, @PathVariable(name="bID") int bID){
+
+        boolean result = reviewBidController.rejectBid(bID);
+
+        if (result){
+            return "redirect:/bid/review";
+        }
+        // set a flash message
+        return "redirect:/bid/review";
+    }
+
+    @PostMapping("/review/search")
+    public String searchBidReview(@RequestParam String status,Model model, HttpSession session){
+        // getting session attributes
+        String currentUserID = (String) session.getAttribute("currentUserID");
+        String userName = (String) session.getAttribute("userName");
+        String loginRole = (String) session.getAttribute("loginRole");
+        
+        if (currentUserID == null || !loginRole.equals("Manager")){
+            return "redirect:/";
+        }
+
+        List<StaffBid> bids = searchBidController.searchBidsReviewByStatus(status);
+
+        model.addAttribute("userName", userName); // For the nav bar user name
+        model.addAttribute("empID", currentUserID); // For the nav bar emp ID
+        model.addAttribute("bids", bids);
+
+        return "ReviewBidManagement";
     }
 
 
