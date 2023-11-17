@@ -95,9 +95,9 @@ public class BiddingPage {
         String userName = (String) session.getAttribute("userName");
         String loginRole = (String) session.getAttribute("loginRole");
         
-        // if (currentUserID == null || !loginRole.equals("Manager")){
-        //     return "redirect:/";
-        // }
+        if (currentUserID == null || !loginRole.equals("Manager")){
+            return "redirect:/";
+        }
 
         List<StaffBid> bids = viewBidController.viewAllBids();
 
