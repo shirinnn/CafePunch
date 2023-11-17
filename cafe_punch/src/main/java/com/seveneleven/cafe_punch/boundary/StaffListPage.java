@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seveneleven.cafe_punch.controllers_service.AllocateWorkSlotController;
 import com.seveneleven.cafe_punch.controllers_service.ViewStaffListController;
@@ -107,13 +108,15 @@ public class StaffListPage {
     AllocateWorkSlotController allocateWorkSlotController;
 
     @GetMapping("/wsList/allocate/{empID}/{wsID}/{role}")
-    public String allocateWorkSlot(@PathVariable(name="empID") String empID, @PathVariable(name="wsID") int wsID, @PathVariable(name="role") String role){
+    public String allocateWorkSlot(@PathVariable(name="empID") String empID, @PathVariable(name="wsID") int wsID, @PathVariable(name="role") String role, RedirectAttributes redirAttr){
 
         System.out.println(empID);
         boolean result = allocateWorkSlotController.assignSlot(empID, wsID, role);
 
-        if (result)
+        if (result){
+            redirAttr.addFlashAttribute("message", "Allocate Succesfully");
             return "redirect:/staff/";
+        }
         else 
             return "redirect:/"  ;  
     }

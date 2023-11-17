@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seveneleven.cafe_punch.controllers_service.CreateUserProfileController;
 import com.seveneleven.cafe_punch.controllers_service.SearchUserProfileController;
@@ -98,7 +99,7 @@ public class UserProfilePage {
     CreateUserProfileController CreateController;
 
     @PostMapping("/createForm/create")
-    public String createProfile(UserProfile userProfile, Model model)
+    public String createProfile(UserProfile userProfile, Model model, RedirectAttributes redirAttr)
     {
         // post data from userAccount attributes in html
         model.addAttribute("profile", userProfile);
@@ -106,6 +107,7 @@ public class UserProfilePage {
 
         boolean result = CreateController.createProfile(userProfile);
         if (result){
+            redirAttr.addFlashAttribute("message", "Created Successfully");
             return "redirect:/userProfile/";
         } else {
             return "redirect:/userProfile/createForm";
@@ -139,7 +141,7 @@ public class UserProfilePage {
     }
 
     @PostMapping("/updateForm/update/{profileID}")
-    public String updateProfile(UserProfile profile, Model model, @PathVariable(name="profileID") String profileID){
+    public String updateProfile(UserProfile profile, Model model, @PathVariable(name="profileID") String profileID, RedirectAttributes redirAttr){
 
         // post data from userAccount attributes in html
         model.addAttribute("profile", profile);
@@ -147,6 +149,7 @@ public class UserProfilePage {
         boolean result = UpdateController.updateProfile(profile);
 
         if (result){
+            redirAttr.addFlashAttribute("message", "Updated Successfully");
             return "redirect:/userProfile/";
         } else {
             return "redirect:/userProfile/updateForm/" + profileID;
@@ -156,11 +159,12 @@ public class UserProfilePage {
     @Autowired 
     SuspendUserProfileController suspendController;
     @GetMapping("/suspend/{profileID}")
-    public String SuspendProfile(Model model, @PathVariable(name="profileID") int profileID){
+    public String SuspendProfile(Model model, @PathVariable(name="profileID") int profileID, RedirectAttributes redirAttr){
 
         boolean result = suspendController.suspendProfile(profileID);
 
         if (result){
+            redirAttr.addFlashAttribute("message", "Suspend Successfully");
             return "redirect:/userProfile/";
         } else {
             return "redirect:/";

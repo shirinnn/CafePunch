@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seveneleven.cafe_punch.controllers_service.CreateUserAccountController;
 import com.seveneleven.cafe_punch.controllers_service.SearchUserAccountController;
@@ -160,7 +161,7 @@ public class UserAccountPage {
     }
 
     @PostMapping("/updateForm/update/{empID}")
-    public String updateAccount(UserAccount account, Model model, @PathVariable(name="empID") String empID){
+    public String updateAccount(UserAccount account, Model model, @PathVariable(name="empID") String empID, RedirectAttributes redirAttr){
 
         // post data from userAccount attributes in html
         model.addAttribute("account", account);
@@ -168,6 +169,7 @@ public class UserAccountPage {
         boolean result = UpdateController.updateAccount(account);
 
         if (result){
+            redirAttr.addFlashAttribute("message", "Updated Successfully");
             return "redirect:/userAccount/";
         } else {
             return "redirect:/userAccount/updateForm/" + empID;
@@ -178,11 +180,12 @@ public class UserAccountPage {
     SuspendUserAccountController suspendController;
 
     @GetMapping("/suspend/{empID}") // add on /{empID}
-    public String SuspendUserAccount(Model model, @PathVariable(name="empID") String empID){
+    public String SuspendUserAccount(Model model, @PathVariable(name="empID") String empID, RedirectAttributes redirAttr){
 
         boolean result = suspendController.suspendAccount(empID);
 
         if (result){
+            redirAttr.addFlashAttribute("message", "Suspended Successfully");
             return "redirect:/userAccount/";
         } else {
             return "redirect:/";

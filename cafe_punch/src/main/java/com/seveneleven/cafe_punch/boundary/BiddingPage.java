@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.seveneleven.cafe_punch.controllers_service.DeleteBidController;
 import com.seveneleven.cafe_punch.controllers_service.ReviewBidController;
@@ -77,12 +78,14 @@ public class BiddingPage {
     DeleteBidController deleteBidController;
 
     @GetMapping("/status/delete/{bID}")
-    public String deleteBid(Model model, @PathVariable(name="bID") int bID){
+    public String deleteBid(Model model, @PathVariable(name="bID") int bID, RedirectAttributes redirAttr){
 
         boolean result = deleteBidController.deleteBid(bID);
 
-        if (result)
+        if (result){
+            redirAttr.addFlashAttribute("message", "Deleted Successfully");
             return "redirect:/bid/status";
+        }
         else
             return "redirect:/";
     }
@@ -112,23 +115,26 @@ public class BiddingPage {
     ReviewBidController reviewBidController;
 
     @GetMapping("/review/approve/{empID}/{bID}/{wsID}/{role}")
-    public String approveBid(Model model, HttpSession session, @PathVariable(name="empID") String empID, @PathVariable(name="bID") int bID, @PathVariable(name="wsID") int wsID, @PathVariable(name="role") String role){
+    public String approveBid(RedirectAttributes redirAttr, Model model, HttpSession session, @PathVariable(name="empID") String empID, @PathVariable(name="bID") int bID, @PathVariable(name="wsID") int wsID, @PathVariable(name="role") String role){
 
         boolean result = reviewBidController.approveBid(empID, bID, wsID, role);
 
         if (result){
+            redirAttr.addFlashAttribute("message", "Approved Succesfully");
             return "redirect:/bid/review";
         }
         // set a flash message
+        redirAttr.addFlashAttribute("message", "Error");
         return "redirect:/bid/review";
     }
 
     @GetMapping("/review/reject/{bID}")
-    public String rejectBid(Model model, HttpSession session, @PathVariable(name="bID") int bID){
+    public String rejectBid(RedirectAttributes redirAttr, Model model, HttpSession session, @PathVariable(name="bID") int bID){
 
         boolean result = reviewBidController.rejectBid(bID);
 
         if (result){
+            redirAttr.addFlashAttribute("message", "Reject Succesfully");
             return "redirect:/bid/review";
         }
         // set a flash message
@@ -185,12 +191,13 @@ public class BiddingPage {
     UpdateWorkSlotController updateWorkSlotController;
 
     @PostMapping("/review/update/{bID}")
-    public String updateSlot(@RequestParam String empID, @PathVariable(name="bID") int bID){
+    public String updateSlot(RedirectAttributes redirAttr, @RequestParam String empID, @PathVariable(name="bID") int bID){
         
         boolean result = updateWorkSlotController.updateSlot(bID, empID);
 
         if (result){
-            return "redirect:/staff/";
+            redirAttr.addFlashAttribute("message", "Updated Succesfully");
+            return "redirect:/bid/review";
         } 
         return "redirect:/";
     }

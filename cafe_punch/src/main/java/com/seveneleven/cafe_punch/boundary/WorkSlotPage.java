@@ -76,12 +76,13 @@ public class WorkSlotPage {
     CreateWorkSlotController createWorkSlotController;
 
     @PostMapping("/createForm/create")
-    public String createWorkSlot(WorkSlot workSlot, Model model)
+    public String createWorkSlot(WorkSlot workSlot, Model model, RedirectAttributes redirAttr)
     {
         model.addAttribute("workslot", workSlot);
 
         boolean result = createWorkSlotController.createWorkSlot(workSlot);
         if (result){
+            redirAttr.addFlashAttribute("message", "Created Successfully");
             return "redirect:/workslot/";
         } else {
             return "redirect:/workslot/createForm";
@@ -116,7 +117,7 @@ public class WorkSlotPage {
     }
 
     @PostMapping("/updateForm/update/{wsID}")
-    public String updateWorkSlot(WorkSlot workslot, Model model, @PathVariable(name="wsID") String wsID){
+    public String updateWorkSlot(WorkSlot workslot, Model model, @PathVariable(name="wsID") String wsID, RedirectAttributes redirAttr){
 
         // post data from userAccount attributes in html
         model.addAttribute("workslot", workslot);
@@ -124,6 +125,7 @@ public class WorkSlotPage {
         boolean result = updateWorkSlotController.updateWorkSlot(workslot);
 
         if (result){
+            redirAttr.addFlashAttribute("message", "Updated Successfully");
             return "redirect:/workslot/";
         } else {
             return "redirect:/workslot/updateForm/" + wsID;
@@ -134,11 +136,12 @@ public class WorkSlotPage {
     DeleteWorkSlotController deleteWorkSlotController;
 
     @GetMapping("/delete/{wsID}")
-    public String DeleteWorkSlot(Model model, @PathVariable(name="wsID") int wsID){
+    public String DeleteWorkSlot(Model model, @PathVariable(name="wsID") int wsID, RedirectAttributes redirAttr){
 
         boolean result = deleteWorkSlotController.deleteWorkslot(wsID);
 
         if (result){
+            redirAttr.addFlashAttribute("message", "Deleted Successfully");
             return "redirect:/workslot/";
         } else {
             return "redirect:/";
