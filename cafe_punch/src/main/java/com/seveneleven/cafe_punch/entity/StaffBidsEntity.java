@@ -71,7 +71,7 @@ public class StaffBidsEntity {
     public List<StaffBid> searchBidsByStatus(String empID, String status)
     {
         // sql statement to get all user Accounts
-        List<StaffBid> results = jdbcTemplate.query("SELECT * FROM staffbids LEFT JOIN workslots ON staffbids.wsID=workslots.wsID LEFT JOIN staffs ON staffbids.empID=staffs.empID LEFT JOIN useraccounts ON staffbids.empID=useraccounts.empID WHERE staffbids.empID=? AND status=?", new StaffBidMapper(), empID, status);
+        List<StaffBid> results = jdbcTemplate.query("SELECT * FROM staffbids LEFT JOIN workslots ON staffbids.wsID=workslots.wsID LEFT JOIN staffs ON staffbids.empID=staffs.empID LEFT JOIN useraccounts ON staffbids.empID=useraccounts.empID WHERE staffbids.empID=? AND staffbids.status=?", new StaffBidMapper(), empID, status);
         return results;
     }
 
